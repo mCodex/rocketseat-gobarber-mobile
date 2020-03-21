@@ -9,6 +9,8 @@ import { name as appName } from './app.json';
 
 import 'react-native-gesture-handler';
 
+import '~/config/ReactotronConfig';
+
 enableScreens();
 
 AppRegistry.registerComponent(appName, () => App);
