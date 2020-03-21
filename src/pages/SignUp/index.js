@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Background from '~/components/Background';
 
 import logo from '~/assets/logo.png';
+
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -15,10 +18,19 @@ import {
 } from './styles';
 
 export default ({ navigation }) => {
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const handleSubmit = () => {};
+  const [email, setEmail] = useState();
+  const [name, setName] = useState();
+  const [password, setPassword] = useState();
+
+  const handleSubmit = () => {
+    dispatch(signUpRequest(name, email, password));
+  };
 
   return (
     <Background>
@@ -32,6 +44,8 @@ export default ({ navigation }) => {
             placeholder="Nome completo"
             returnKeyType="next"
             onSubmitEditing={() => emailRef.current.focus()}
+            onChangeText={setName}
+            value={name}
           />
 
           <FormInput
@@ -43,6 +57,8 @@ export default ({ navigation }) => {
             placeholder="E-mail"
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
+            onChangeText={setEmail}
+            value={email}
           />
 
           <FormInput
@@ -52,9 +68,13 @@ export default ({ navigation }) => {
             placeholder="Senha"
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            onChangeText={setPassword}
+            value={password}
           />
 
-          <SubmitButton onPress={handleSubmit}>Acessar</SubmitButton>
+          <SubmitButton onPress={handleSubmit} loading={loading}>
+            Criar Conta
+          </SubmitButton>
         </Form>
 
         <FooterLink onPress={() => navigation.pop()}>

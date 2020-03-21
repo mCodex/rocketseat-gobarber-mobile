@@ -15,13 +15,13 @@ export function* signIn({ payload: { email, password } }) {
 
     const { token, user } = response.data;
 
-    if (!user.provider) {
-      Toast.show('Usuário não é um prestador', {
-        backgroundColor: 'red',
-      });
+    // if (!user.provider) {
+    //   Toast.show('Usuário não é um prestador', {
+    //     backgroundColor: 'red',
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
@@ -42,7 +42,6 @@ export function* signUp({ payload: { name, email, password } }) {
       name,
       email,
       password,
-      provider: true,
     });
 
     // history.push('/');
