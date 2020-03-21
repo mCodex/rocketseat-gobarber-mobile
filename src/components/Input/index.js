@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 import { Container, TInput } from './styles';
 
-const Input = ({ style, icon, ...rest }) => {
+const Input = forwardRef(({ style, icon, ...rest }, ref) => {
   return (
     <Container style={style}>
       {icon && <Icon name={icon} size={20} color="rgba(255,255,255,0.6)" />}
-      <TInput {...rest} />
+      <TInput ref={ref} {...rest} />
     </Container>
   );
-};
+});
 
 Input.propTypes = {
   icon: PropTypes.string,
@@ -23,4 +23,4 @@ Input.defaultProps = {
   style: {},
 };
 
-export default forwardRef(Input);
+export default Input;
