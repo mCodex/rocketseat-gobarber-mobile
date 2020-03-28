@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 
 import Background from '~/components/Background';
 import Appointment from '~/components/Appointment';
@@ -10,14 +11,18 @@ import { Container, Title, List } from './styles';
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
 
+  const loadDataFromAPI = useCallback(async () => {
+    const response = await api.get('appointments');
+
+    setAppointments(response.data);
+  }, []);
+
   useEffect(() => {
-    const loadAppointments = async () => {
-      const response = await api.get('appointments');
+    loadDataFromAPI();
+  }, [loadDataFromAPI]);
 
-      setAppointments(response.data);
-    };
-
-    loadAppointments();
+  useFocusEffect(() => {
+    loadDataFromAPI();
   }, []);
 
   const handleCancel = async id => {

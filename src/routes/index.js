@@ -48,7 +48,11 @@ export default () => {
         component={SelectDateTime}
         options={{ title: 'Selecione um horário' }}
       />
-      <Stack.Screen name="Confirm" component={Confirm} />
+      <Stack.Screen
+        name="Confirm"
+        component={Confirm}
+        options={{ title: 'Confirmar Agendamento' }}
+      />
     </Stack.Navigator>
   );
 
